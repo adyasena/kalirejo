@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .navbar {
+    position: fixed;
+    height: 4rem;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: .4s ease;
+  }
+}
