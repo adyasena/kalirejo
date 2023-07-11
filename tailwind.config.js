@@ -10,12 +10,11 @@ export default {
       roboto: ["Roboto", "sans-serif"],
     },
     colors: {
-      'green-primary': '#609966',
-      'green-light': '#EDF1D6',
-      'green-dark': '#40513B',
-      'orange-primary': '#FE8402',
-      'blue-light': '#0093DD',
-      'red-primary': '#D91C1C',
+      'green': '#325d41',
+      'green-dark': '#254832',
+      'blue': '#114477',
+      'yellow': '#ffcc33',
+      'red': '#D91C1C',
       'black': '#151515',
       'grey': '#CCCCCC',
       'white': '#F9FAFB'
