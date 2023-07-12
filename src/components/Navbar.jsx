@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import {
+  FaBars
+} from "react-icons/fa"
 import { Logo } from "../assets";
 
 const Navbar = () => {
@@ -34,11 +37,12 @@ const Navbar = () => {
       behavior: 'smooth',
     });
   };
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="navbar">
-      <div className={"navbar bg-white "
-        + (scroll ? "opacity-100 shadow-md" : "lg:h-24 opacity-0")}>
+      <div className={"navbar bg-white transform duration-300 ease "
+        + (scroll ? "opacity-100 " : "lg:h-24 lg:opacity-0 ") + (isOpen ? "" : "shadow-md")}>
       </div>
       <div className={"z-[1] font-poppins sticky flex flex-row container mx-auto lg:px-8 text-center items-center text-lg font-semibold text-green-dark " +
         "justify-between transform duration-300 ease overflow-hidden " + (scroll ? "h-16" : "lg:h-24 h-16")}>
@@ -47,7 +51,11 @@ const Navbar = () => {
           <img src={Logo} className={"m-2 transform duration-300 ease " + (scroll ? "w-8" : "w-0 mr-[-4px]")}/>
           <p className="transform">Kalirejo Lestari</p> 
         </button>
-        <div className="flex flex-row gap-12">
+        <button className="p-1 rounded"
+          onClick={() => setIsOpen((prev) => !prev)}>
+            <FaBars />
+        </button>
+        <div className="lg:flex flex-row hidden gap-12">
           <button className="hover:underline"
             onClick={toHome}>
             Beranda
@@ -70,6 +78,30 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      {isOpen &&
+        <div className="w-screen bg-white pb-2 font-bold text-green-dark transform duration-300 ease flex flex-col absolute shadow-md">
+          <button className="hover:underline py-2"
+            onClick={toHome}>
+              Beranda
+          </button>
+          <button className="hover:underline py-2"
+            onClick={toWisata}>
+            Wisata
+          </button>
+          <button className="hover:underline py-2"
+            onClick={toUMKM}>
+              UMKM
+          </button>
+          <button className="hover:underline py-2"
+            onClick={toGaleri}>
+              Galeri
+          </button>
+          <button className="hover:underline py-2"
+            onClick={scrollToBottom}>
+              Kontak
+          </button>
+        </div>
+      }
     </div>
   );
 };

@@ -22,14 +22,14 @@ const Hero = () => {
           <div className="flex flex-col h-full container mx-auto items-center font-poppins text-green-dark">
             <div className="flex flex-col justify-center items-center mt-36 font-semibold lg:text-4xl text-2xl text-center leading-normal gap-8">
               <img src={Logo} className="lg:w-1/12 w-1/4"/>
-              <p className="lg:text-4xl text-lg font-bold">
+              <p className="lg:text-4xl text-xl font-bold">
                 Temukan destinasi wisata terbaik<br/>
                 dan produk UMKM unggulan
               </p>
-              <p className="lg:text-xl font-normal">
+              <p className="lg:text-xl text-lg font-normal">
                 Desa Kalirejo<br/>Salaman, Magelang, Jawa Tengah
               </p>
-              <button className="bg-green-dark text-white mt-12 font-normal text-xl py-2 px-6 rounded-md transform duration-300 ease lg:hover:bg-black"
+              <button className="bg-green-dark text-white mt-12 font-normal lg:text-xl text-lg py-2 px-6 rounded-md transform duration-300 ease lg:hover:bg-black"
                 onClick={handleClickScroll}>
                 Telusuri Desa
               </button>
