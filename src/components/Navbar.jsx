@@ -8,6 +8,7 @@ import { Logo } from "../assets";
 const Navbar = () => {
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const changeClass = () => {
     if (window.scrollY >= 180) {
@@ -37,7 +38,13 @@ const Navbar = () => {
       behavior: 'smooth',
     });
   };
-  const [isOpen, setIsOpen] = useState(false)
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+  
 
   return (
     <div className="navbar">
@@ -47,7 +54,7 @@ const Navbar = () => {
       <div className={"z-[1] font-poppins sticky flex flex-row container mx-auto lg:px-8 text-center items-center text-lg font-semibold text-green-dark " +
         "justify-between transform duration-300 ease overflow-hidden " + (scroll ? "h-16" : "lg:h-24 h-16")}>
         <button className="flex flex-row justify-start items-center h-full"
-          onClick={toHome}>
+          onClick={() => {scrollToTop(); toHome()}}>
           <img src={Logo} className={"m-2 transform duration-300 ease " + (scroll ? "w-8" : "w-0 mr-[-4px]")}/>
           <p className="transform">Kalirejo Lestari</p> 
         </button>
@@ -57,7 +64,7 @@ const Navbar = () => {
         </button>
         <div className="lg:flex flex-row hidden gap-12">
           <button className="hover:underline"
-            onClick={toHome}>
+            onClick={() => {scrollToTop(); toHome()}}>
             Beranda
           </button>
           <button className="hover:underline"
@@ -78,26 +85,26 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      <div className={"w-screen bg-white pb-2 font-bold text-green-dark transform duration-300 ease flex flex-col lg:hidden absolute shadow-md "
+      <div className={"w-screen bg-white pb-2 text-green-dark transform duration-300 ease flex flex-col lg:hidden absolute shadow-md "
         + (!isOpen ? "opacity-0 pointer-events-none" : "visible opacity-100")}>
         <button className="hover:bg-grey py-2"
-          onClick={toHome}>
+          onClick={() => {setIsOpen((prev) => !prev); scrollToTop(); toHome()}}>
             Beranda
         </button>
         <button className="hover:bg-grey py-2"
-          onClick={toWisata}>
+          onClick={() => {setIsOpen((prev) => !prev); toWisata()}}>
             Wisata
         </button>
         <button className="hover:bg-grey py-2"
-          onClick={toUMKM}>
+          onClick={() => {setIsOpen((prev) => !prev); toUMKM()}}>
             UMKM
         </button>
         <button className="hover:bg-grey py-2"
-          onClick={toGaleri}>
+          onClick={() => {setIsOpen((prev) => !prev); toGaleri()}}>
             Galeri
         </button>
         <button className="hover:bg-grey py-2"
-          onClick={scrollToBottom}>
+          onClick={() => {setIsOpen((prev) => !prev); scrollToBottom()}}>
             Kontak
         </button>
       </div>
