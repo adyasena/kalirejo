@@ -29,7 +29,7 @@ const Hero = () => {
                 <p className="lg:text-xl text-lg font-normal lg:w-4/5">
                   Temukan destinasi wisata terbaik dan produk UMKM unggulan di Desa Kalirejo, Kecamatan Salaman, Kabupaten Magelang, Jawa Tengah
                 </p>
-                <button className="bg-green-dark text-white mb-20 lg:mb-0 font-normal lg:text-xl text-lg py-2 px-6 rounded-lg transform duration-300 ease lg:hover:bg-black"
+                <button className="bg-green-dark text-white mb-32 lg:mb-0 font-normal lg:text-xl text-lg py-2 px-6 rounded-lg transform duration-300 ease lg:hover:bg-black"
                   onClick={handleClickScroll}>
                     Telusuri Sekarang
                 </button>
