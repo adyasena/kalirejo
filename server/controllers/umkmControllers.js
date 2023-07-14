@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler")
 
+const UMKM = require("../models/umkmModel")
+
 const createtUMKM = asyncHandler(async (req, res) => {
   if(!req.body) {
     res.status(400)
@@ -10,7 +12,8 @@ const createtUMKM = asyncHandler(async (req, res) => {
 })
 
 const readUMKM = asyncHandler(async (req, res) => {
-  res.status(200).json({ fak: "lmao" })
+  const umkm = await UMKM.find()
+  res.status(200).json(umkm)
 })
 
 const updateUMKM = asyncHandler(async (req, res) => {
