@@ -1,8 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const { readUMKM, createtUMKM, updateUMKM, deleteUMKM } = require("../controllers/umkmControllers")
+const { readUMKM, createUMKM, updateUMKM, deleteUMKM } = require("../controllers/umkmControllers")
 
-router.post("/", createtUMKM)
+router.post("/", createUMKM)
 
 router.get("/", readUMKM)
 
