@@ -1,7 +1,9 @@
 import Bg from "./bg.jpg"
-import BukitGG from "./bukitgg.jpg"
-import Kering from "./kering.jpg"
+import GG1 from "./bukitgg1.jpg"
+import GG2 from "./bukitgg2.jpg"
+import GG3 from "./bukitgg3.jpg"
+import GG4 from "./bukitgg4.jpg"
+import GG5 from "./bukitgg5.jpg"
 import Logo from "./logo.png"
-import Pattern from "./pattern.png"
 
-export { Bg, BukitGG, Kering, Logo, Pattern }
+export { Bg, GG1, GG2, GG3, GG4, GG5, Logo }
