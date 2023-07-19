@@ -154,12 +154,12 @@ export default function Homepage() {
             <div className="flex flex-col text-4xl font-bold gap-4">
               Bukit GG
               <div className="grid grid-cols-6 grid-rows-6 max-h-[30rem] gap-4">
-                <img src={GG1} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg"/>
-                <img src={GG2} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg"/>
-                <img src={GG3} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg"/>
-                <img src={GG5} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg"/>
-                <img src={GG4} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg"/>
-                <img src={Bg} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg"/>             
+                <img src={GG1} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+                <img src={GG2} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+                <img src={GG3} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+                <img src={GG5} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+                <img src={GG4} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+                <img src={Bg} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>             
               </div>
               <div className="flex flex-row justify-between w-full gap-4">
                 <div className="bg-green-dark flex flex-col text-lg font-normal text-white p-4 text-start w-[30%] gap-4 rounded-lg">
@@ -210,19 +210,19 @@ export default function Homepage() {
               Produk Unggulan
               <div className="flex flex-row gap-4">
                 <div className="flex flex-col items-center gap-2">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg" />
+                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Grubi
                   </div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg" />
+                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Cengkeh
                   </div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg" />
+                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Slondok
                   </div>
