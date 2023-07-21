@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const colors = require("colors")
 const dotenv = require("dotenv").config()
+const cors = require('cors');
 const { errorHandler } = require("./middleware/errorMiddleware")
 const port = process.env.PORT
 const mongodb_uri = process.env.MONGODB_URI
@@ -17,11 +18,13 @@ mongoose
     process.exit(1);
   });
 
+app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static('public'));
 
-app.use("/api/umkm", require("./routes/umkmRoutes"))
-app.use("/api/wisata", require("./routes/wisataRoutes"))
+app.use("/umkm", require("./routes/umkmRoutes"))
+app.use("/wisata", require("./routes/wisataRoutes"))
 
 app.use(errorHandler)
 
