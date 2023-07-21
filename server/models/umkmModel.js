@@ -6,29 +6,25 @@ const umkmSchema = mongoose.Schema(
       type: String,
       required: true
     },
-  },
-  {
     produk: {
       type: String,
       required: true
     },
-  },
-  {
     alamat: {
       type: String,
       required: true
     },
-  },
-  {
     dusun: {
       type: String,
       required: true
     },
-  },
-  {
     noHP: {
       type: String,
-      required: false
+      required: true
+    },
+    img: {
+      data: Buffer,
+      contentType: String,
     },
   },
 )

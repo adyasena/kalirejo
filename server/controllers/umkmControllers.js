@@ -1,6 +1,19 @@
 const asyncHandler = require("express-async-handler")
 
 const UMKM = require("../models/umkmModel")
+const multer = require("multer")
+const fs = require("fs")
+
+const storage = multer.diskStorage ({
+  destination:(req,file,cb) => {
+    cb(null, "uploads")
+  },
+  filename:(req,file,cb) => {
+    cb(null,file.originalname)
+  }
+})
+
+const upload = multer({storage: storage})
 
 const createUMKM = asyncHandler(async (req, res) => {
   if(!req.body) {
@@ -9,7 +22,15 @@ const createUMKM = asyncHandler(async (req, res) => {
   }
 
   const umkm = await UMKM.create({
-    nama: req.body.nama
+    nama: req.body.nama,
+    produk: req.body.produk,
+    alamat: req.body.alamat,
+    dusun: req.body.dusun,
+    noHP: req.body.noHP,
+    img: {
+      data: fs.readFileSync("uploads/", req.file.filename),
+      contentType: "image/png"
+    },
   })
   res.status(200).json(umkm)
 })
@@ -46,6 +67,8 @@ const deleteUMKM = asyncHandler(async (req, res) => {
 
   res.status(200).json({ id: req.params.id })
 })
+
+
 
 module.exports = {
   readUMKM, createUMKM, updateUMKM, deleteUMKM
