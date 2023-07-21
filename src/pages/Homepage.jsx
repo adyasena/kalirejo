@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents, FaBars } from "react-icons/fa6";
 import { Bg, GG1, GG2, GG3, GG4, GG5, Logo } from "../assets";
-
+import { useFetch } from "../helpers/useFetch";
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -19,15 +19,6 @@ export default function Homepage() {
 
   window.addEventListener('scroll', changeClass);
 
-  const toHome = () => {
-    navigate('/');
-  };
-  const toWisata = () => {
-    navigate('/');
-  };
-  const toUMKM = () => {
-    navigate('/');
-  };
   const toGaleri = () => {
     navigate('/');
   };
@@ -59,6 +50,13 @@ export default function Homepage() {
     }
   };
   
+  const {data: wisataData} = useFetch("/api/wisata");
+
+  const [wisata, setWisata] = useState([]);
+  useMemo(() => {
+    if (!wisataData?.data?.wisata) return;
+    setWisata(wisataData.data.wisata);
+  }, [wisataData]);
 
   return (
     <>
@@ -69,7 +67,7 @@ export default function Homepage() {
         <div className={"z-[1] font-poppins sticky flex flex-row container mx-auto lg:px-8 text-center items-center text-lg font-semibold text-green-dark " +
           "justify-between transform duration-300 ease overflow-hidden " + (scroll ? "h-16" : "lg:h-24 h-16")}>
           <button className="flex flex-row justify-start items-center h-full"
-            onClick={() => {scrollToTop(); toHome()}}>
+            onClick={() => {scrollToTop()}}>
             <img src={Logo} className={"m-2 transform duration-300 ease " + (scroll ? "w-8" : "w-0 mr-[-4px]")}/>
             <p className="transform">Kalirejo Lestari</p> 
           </button>
@@ -79,7 +77,7 @@ export default function Homepage() {
           </button>
           <div className="lg:flex flex-row hidden gap-12">
             <button className="hover:underline"
-              onClick={() => {scrollToTop(); toHome()}}>
+              onClick={() => {scrollToTop()}}>
               Beranda
             </button>
             <button className="hover:underline"
@@ -103,7 +101,7 @@ export default function Homepage() {
         <div className={"w-screen bg-white pb-2 text-green-dark transform duration-300 ease flex flex-col lg:hidden absolute shadow-md "
           + (!isOpen ? "opacity-0 pointer-events-none" : "visible opacity-100")}>
           <button className="hover:bg-grey py-2"
-            onClick={() => {setIsOpen((prev) => !prev); scrollToTop(); toHome()}}>
+            onClick={() => {setIsOpen((prev) => !prev); scrollToTop()}}>
               Beranda
           </button>
           <button className="hover:bg-grey py-2"
@@ -163,7 +161,7 @@ export default function Homepage() {
               </div>
               <div className="flex flex-row justify-between w-full gap-4">
                 <div className="bg-green-dark flex flex-col text-lg font-normal text-white p-4 text-start w-[30%] gap-4 rounded-lg">
-                  <a className="font-bold text-2xl">Grhadika Garden</a>
+                  <a className="font-bold text-2xl">{wisata.nama}</a>
                   <div className="flex flex-col">
                     <div className="flex flex-row gap-2 items-center">
                       <FaMapLocationDot/> Lokasi
@@ -215,13 +213,13 @@ export default function Homepage() {
                     Grubi
                   </div>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center gap-2">
                   <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Cengkeh
                   </div>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center gap-2">
                   <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Slondok
