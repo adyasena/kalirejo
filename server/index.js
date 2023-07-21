@@ -21,6 +21,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/api/umkm", require("./routes/umkmRoutes"))
+app.use("/api/wisata", require("./routes/wisataRoutes"))
 
 app.use(errorHandler)
 
