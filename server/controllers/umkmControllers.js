@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler")
-
+const { successResponseBuilder } = require('../middleware/responseBuilder.js')
 const UMKM = require("../models/umkmModel")
 const multer = require("multer")
 const fs = require("fs")
@@ -35,10 +35,14 @@ const createUMKM = asyncHandler(async (req, res) => {
   res.status(200).json(umkm)
 })
 
-const readUMKM = asyncHandler(async (req, res) => {
-  const umkm = await UMKM.find()
-  res.status(200).json(umkm)
-})
+const readUMKM = async (req, res, next) => {
+  try {
+    const umkm = await UMKM.find({});
+    res.json(successResponseBuilder({ umkm: umkm }));
+  } catch (err) {
+    next(err);
+  }
+};
 
 const updateUMKM = asyncHandler(async (req, res) => {
   const umkm = await UMKM.findById(req.params.id)

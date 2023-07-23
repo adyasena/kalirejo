@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler")
-
+const { successResponseBuilder } = require('../middleware/responseBuilder.js')
 const Wisata = require("../models/wisataModel")
 
 const createWisata = asyncHandler(async (req, res) => {
@@ -16,12 +16,16 @@ const createWisata = asyncHandler(async (req, res) => {
     fasilitas: req.body.fasilitas
   })
   res.status(200).json(wisata)
-})
+});
 
-const readWisata = asyncHandler(async (req, res) => {
-  const wisata = await Wisata.find()
-  res.status(200).json(wisata)
-})
+const readWisata = async (req, res, next) => {
+  try {
+    const wisata = await Wisata.find({});
+    res.json(successResponseBuilder({ wisata : wisata }));
+  } catch (err) {
+    next(err);
+  }
+};
 
 const updateWisata = asyncHandler(async (req, res) => {
   const wisata = await Wisata.findById(req.params.id)
