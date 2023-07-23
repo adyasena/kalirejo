@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents, FaBars } from "react-icons/fa6";
 import { Bg, GG1, GG2, GG3, GG4, GG5, Logo } from "../assets";
 import { useFetch } from "../helpers/useFetch";
@@ -7,7 +7,14 @@ import { useFetch } from "../helpers/useFetch";
 export default function Homepage() {
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const {data: wisataData} = useFetch("/wisata");
+
+  const [wisata, setWisata] = useState([]);
+  useMemo(() => {
+    if (!wisataData?.data?.data) return;
+    setWisata(wisataData.data.data.wisata);
+  }, [wisataData]);
 
   const changeClass = () => {
     if (window.scrollY >= 180) {
@@ -49,15 +56,11 @@ export default function Homepage() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  function rupiahFormatter(num) {
+    return "Rp" + num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   
-  const {data: wisataData} = useFetch("/api/wisata");
-
-  const [wisata, setWisata] = useState([]);
-  useMemo(() => {
-    if (!wisataData?.data?.wisata) return;
-    setWisata(wisataData.data.wisata);
-  }, [wisataData]);
-
   return (
     <>
       <div className="navbar">
@@ -161,37 +164,41 @@ export default function Homepage() {
               </div>
               <div className="flex flex-row justify-between w-full gap-4">
                 <div className="bg-green-dark flex flex-col text-lg font-normal text-white p-4 text-start w-[30%] gap-4 rounded-lg">
-                  <a className="font-bold text-2xl">{wisata.nama}</a>
-                  <div className="flex flex-col">
-                    <div className="flex flex-row gap-2 items-center">
-                      <FaMapLocationDot/> Lokasi
+                  {wisata.map((item) => (
+                    <div key={item._id} className="flex flex-col gap-4">
+                      <a className="font-bold text-2xl">{item.nama}</a>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row gap-2 items-center">
+                          <FaMapLocationDot/> Lokasi
+                        </div>
+                        <a>{item.lokasi}</a>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row gap-2 items-center">
+                          <FaTicket/> Harga Tiket Masuk
+                        </div>
+                        <a>{rupiahFormatter(item.htm)}/orang</a>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row gap-2 items-center">
+                          <FaCalendarDays/> Jam Buka
+                        </div>
+                        <a>Senin - Jumat: 08:00 - 18:00<br/>
+                          Sabtu - Minggu: 06:00 - 20:00<br/>
+                        </a>
+                        </div>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row gap-2 items-center">
+                          <FaTents/> Fasilitas
+                        </div>
+                        <a>- Spot Foto<br/>
+                        - Agro Learning<br/>
+                        - Tempat Makan<br/>
+                        - Toilet
+                        </a>
+                      </div>
                     </div>
-                    <a>Dusun Kobar, Desa Kalirejo</a>
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex flex-row gap-2 items-center">
-                      <FaTicket/> Harga Tiket Masuk
-                    </div>
-                    <a>Rp2.000,00</a>
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex flex-row gap-2 items-center">
-                      <FaCalendarDays/> Jam Buka
-                    </div>
-                    <a>Senin - Jumat: 08:00 - 18:00<br/>
-                      Sabtu - Minggu: 06:00 - 20:00<br/>
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex flex-row gap-2 items-center">
-                      <FaTents/> Fasilitas
-                    </div>
-                    <a>Spot Foto<br/>
-                      Agro Learning<br/>
-                      Tempat Makan<br/>
-                      Toilet
-                    </a>
-                  </div>
+                  ))}   
                 </div>
                 <iframe className="w-[70%] rounded-lg"
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15818.456683504251!2d110.1320134!3d-7.6168929!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a93f9e33f44e5%3A0xf886fa8199c6a60!2sBukit%20%22GG%22%20(Grhadika%20Garden)!5e0!3m2!1sen!2sid!4v1689642859651!5m2!1sen!2sid" 

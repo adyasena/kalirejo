@@ -10,13 +10,12 @@ export const useFetch = (endpoint, refreshSignal) => {
       try {
         const fetcher = createFetcher();
         const response = await fetcher.get(endpoint);
-        if (!response.data.success) setError(response.data.error);
-          setData(response.data);
+        setData(response);
       } catch (error) {
         setError(error);
       }
     })();
-  }, [refreshSignal]);
+  }, [endpoint, refreshSignal]);
 
   return {data, error, isLoading: !data && !error};
 }
