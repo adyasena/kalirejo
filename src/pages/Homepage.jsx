@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents, FaBars } from "react-icons/fa6";
-import { Bg, GG1, GG2, GG3, GG4, GG5, Logo } from "../assets";
+import { Bg, GG1, GG2, GG3, GG4, GG5, Anyaman, Grubi, Cengkeh, Slondok, Logo } from "../assets";
 import { useFetch } from "../helpers/useFetch";
 
 export default function Homepage() {
@@ -72,7 +72,7 @@ export default function Homepage() {
           <button className="flex flex-row justify-start items-center h-full"
             onClick={() => {scrollToTop()}}>
             <img src={Logo} className={"m-2 transform duration-300 ease " + (scroll ? "w-8" : "w-0 mr-[-4px]")}/>
-            <p className="transform">Kalirejo Lestari</p> 
+            <p className="transform">Inspirasi Kalirejo</p> 
           </button>
           <button className="p-1 rounded lg:hidden"
             onClick={() => setIsOpen((prev) => !prev)}>
@@ -133,7 +133,7 @@ export default function Homepage() {
               <img src={Logo} className="lg:w-1/12 w-1/3 lg:my-0 my-auto"/>
               <div className="flex flex-col gap-8 lg:items-center">
                 <p className="lg:text-4xl text-5xl font-bold">
-                  Telusuri<br/>Desa Kalirejo
+                  Telusuri<br/>Desa Inspirasi Kalirejo
                 </p>
                 <p className="lg:text-xl text-lg font-normal lg:w-4/5">
                   Temukan destinasi wisata terbaik dan produk UMKM unggulan di Desa Kalirejo, Kecamatan Salaman, Kabupaten Magelang, Jawa Tengah
@@ -211,23 +211,23 @@ export default function Homepage() {
               <div id="section-2" className="pb-10 lg:pb-0"></div>
             </div>
             
-            <div className="flex flex-col text-4xl font-bold gap-4 lg:gap-6 pt-4">
+            <div className="flex flex-col text-4xl font-bold gap-4  pt-4">
               Produk Unggulan
               <div className="flex flex-row gap-4">
-                <div className="flex flex-col items-center gap-2">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
+                <div className="flex flex-col items-center gap-2 w-1/3">
+                  <img src={Grubi} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Grubi
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
+                <div className="flex flex-col items-center gap-2 w-1/3">
+                  <img src={Cengkeh} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Cengkeh
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                  <img src={GG3} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
+                <div className="flex flex-col items-center gap-2 w-1/3">
+                  <img src={Slondok} className="h-1/3 w-full object-cover rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" />
                   <div className="flex flex-col items-center text-2xl">
                     Slondok
                   </div>
@@ -237,67 +237,37 @@ export default function Homepage() {
           </div>
         </div>
       </div>
-      <footer class="relative bg-green pt-8 pb-6">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap text-left lg:text-left">
-            <div class="w-full lg:w-6/12 px-4">
-              <h4 class="text-3xl fonat-semibold text-blueGray-700">Let's keep in touch!</h4>
-              <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
-                Find us on any of these platforms, we respond 1-2 business days.
+      <footer class="relative bg-green-dark pt-8 pb-6 text-white">
+        <div class="container mx-auto px-10">
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-col gap-2 w-1/2 lg:w-6/12 px-4">
+              <h4 class="text-xl font-bold">Desa Inspirasi Kalirejo</h4>
+              <h5 class="text-lg mb-2">
+                Alamat : Jl. Kyai Sampir No. 5 Kalirejo Salaman Magelang<br/>
+                Kode Pos : 56162<br/>
+                Telp : 083145104331<br/>
+                Email : kalirejo03salaman@gmail.com<br/>
               </h5>
-              <div class="mt-6 lg:mb-0 mb-6">
-                <button class="bg-green text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                  <i class="fab fa-twitter"></i></button><button class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                  <i class="fab fa-facebook-square"></i></button><button class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                  <i class="fab fa-dribbble"></i></button><button class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                  <i class="fab fa-github"></i>
-                </button>
-              </div>
             </div>
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="flex flex-wrap items-top mb-6">
-                <div class="w-full lg:w-4/12 px-4 ml-auto">
-                  <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
-                  <ul class="list-unstyled">
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="w-full lg:w-4/12 px-4">
-                  <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
-                  <ul class="list-unstyled">
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT License</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
-                    </li>
-                    <li>
-                      <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <div class="w-1/2 flex flex-row justify-end px-4 gap-4">
+              <button className="h-10 w-10 bg-white rounded-full">
+
+              </button>
+              <button className="h-10 w-10 bg-white rounded-full">
+
+              </button>
+              <button className="h-10 w-10 bg-white rounded-full">
+
+              </button>
+              <button className="h-10 w-10 bg-white rounded-full">
+
+              </button>
             </div>
           </div>
           <div class="flex flex-wrap items-center md:justify-between justify-center">
             <div class="w-full md:w-4/12 px-4 mx-auto text-center">
               <div class="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © <span id="get-current-year">2021</span><a href="https://www.creative-tim.com/product/notus-js" class="text-blueGray-500 hover:text-gray-800" target="_blank"> Notus JS by</a>
-                <a href="https://www.creative-tim.com?ref=njs-profile" class="text-blueGray-500 hover:text-blueGray-800">Creative Tim</a>
+                Desa Inspirasi Kalirejo
               </div>
             </div>
           </div>
