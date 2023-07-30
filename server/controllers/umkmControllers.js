@@ -9,11 +9,9 @@ const createUMKM = asyncHandler(async (req, res) => {
   }
 
   const umkm = await UMKM.create({
-    nama: req.body.nama,
     produk: req.body.produk,
-    alamat: req.body.alamat,
-    dusun: req.body.dusun,
-    noHP: req.body.noHP,
+    deskripsi: req.body.deskripsi,
+    gambar: req.body.gambar,
   })
   res.status(200).json(umkm)
 })

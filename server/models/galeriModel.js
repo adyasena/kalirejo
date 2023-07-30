@@ -1,12 +1,16 @@
 const mongoose = require("mongoose")
 
-const umkmSchema = mongoose.Schema(
+const galeriSchema = mongoose.Schema(
   {
-    produk: {
+    penulis: {
       type: String,
       required: true
     },
-    deskripsi: {
+    judul: {
+      type: String,
+      required: true
+    },
+    teks: {
       type: String,
       required: true
     },
@@ -17,4 +21,4 @@ const umkmSchema = mongoose.Schema(
   },
 )
 
-module.exports = mongoose.model("UMKM", umkmSchema)
+module.exports = mongoose.model("Galeri", galeriSchema)
