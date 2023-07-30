@@ -1,32 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import React, { useState, useMemo } from "react";
-import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents, FaBars } from "react-icons/fa6";
-import { Bg, GG1, GG2, GG3, GG4, GG5, Logo } from "../assets";
-import { useFetch } from "../helpers/useFetch";
-import ModalUmkm from "../components/ModalUmkm";
-import Body from "../components/Body";
+import React, { useState } from "react";
+import { FaBars } from "react-icons/fa6";
+import { Bg, Logo } from "../assets";
+import Wisata from "../components/Wisata";
+import Umkm from "../components/Umkm";
+import Galeri from "../components/Galeri";
 
 export default function Homepage() {
-  const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [showModalUmkm, setShowModalUmkm] = useState(false);
-  const [id, setId] = useState();
-
-  const {data: wisataData} = useFetch("/wisata");
-  const {data: umkmData} = useFetch("/umkm");
-
-  const [wisata, setWisata] = useState([]);
-  useMemo(() => {
-    if (!wisataData?.data?.data) return;
-    setWisata(wisataData.data.data.wisata);
-  }, [wisataData]);
-
-  const [umkm, setUmkm] = useState([]);
-  useMemo(() => {
-    if (!umkmData?.data?.data) return;
-    setUmkm(umkmData.data.data.umkm);
-  }, [umkmData]);
 
   const changeClass = () => {
     if (window.scrollY >= 180) {
@@ -37,14 +18,6 @@ export default function Homepage() {
   };
 
   window.addEventListener('scroll', changeClass);
-
-  const handleOnClose = () => {
-    setShowModalUmkm(false);
-  };
-
-  const toGaleri = () => {
-    navigate('/');
-  };
 
   const scrollToBottom = () => {
     window.scrollTo({
@@ -61,13 +34,19 @@ export default function Homepage() {
   };
   
   const scrollWisata = () => {
-    const element = document.getElementById('section-1');
+    const element = document.getElementById('wisata');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
   const scrollUMKM = () => {
-    const element = document.getElementById('section-2');
+    const element = document.getElementById('umkm');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const scrollGaleri = () => {
+    const element = document.getElementById('galeri');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -108,7 +87,7 @@ export default function Homepage() {
               UMKM
             </button>
             <button className="hover:underline"
-              onClick={toGaleri}>
+              onClick={scrollGaleri}>
               Galeri
             </button>
             <button className="hover:underline"
@@ -132,7 +111,7 @@ export default function Homepage() {
               UMKM
           </button>
           <button className="hover:bg-grey py-2"
-            onClick={() => {setIsOpen((prev) => !prev); toGaleri()}}>
+            onClick={() => {setIsOpen((prev) => !prev); scrollGaleri()}}>
               Galeri
           </button>
           <button className="hover:bg-grey py-2"
@@ -160,49 +139,31 @@ export default function Homepage() {
                 </button>
                 <div className="lg:h-2"></div>
               </div>
-              <div id="section-1" className="pb-10 lg:pb-0"></div>
+              <div id="wisata" className="pb-10 lg:pb-0"></div>
             </div>
           </div>
         </div>
       </div>
-      <div id="wisata" className="bg-white">
-        <div className="flex flex-col container mx-auto font-poppins items-center lg:text-center">
-          <div className="flex flex-col gap-16 mt-10 lg:mt-0 lg:mx-10">
-            <Body/>
-            
-            <div className="flex flex-col text-4xl font-bold gap-4 pt-4 pb-24">
-              Produk Unggulan
-              <div className="grid grid-cols-3 grid-rows-2 gap-4">
-                  {umkm.map((item) => (
-                    <div key={item._id} className="flex flex-col items-center gap-2 h-52">
-                      <button className="h-4/5 w-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" 
-                        onClick={() => {setId(item); setShowModalUmkm(true)}}>
-                        <img src={item.gambar} className="rounded-lg h-full w-full object-cover"
-                          />
-                      </button>
-                      <div className="flex flex-col items-center text-2xl">
-                        {item.produk}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-col container mx-auto font-poppins items-center lg:text-center">
+        <div className="flex flex-col mt-10 lg:mt-0 lg:mx-10">
+          <Wisata/>
+          <Umkm/>
+          <Galeri/>
         </div>
       </div>
-      <footer class="relative bg-green-dark pt-8 pb-6 text-white">
-        <div class="container mx-auto px-10">
-          <div class="flex flex-row justify-between">
-            <div class="flex flex-col gap-2 w-1/2 lg:w-6/12 px-4">
-              <h4 class="text-xl font-bold">Desa Inspirasi Kalirejo</h4>
-              <h5 class="text-lg mb-2">
+      <footer className="relative bg-green-dark pt-8 pb-6 text-white">
+        <div className="container mx-auto px-10">
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-col gap-2 w-1/2 lg:w-6/12 px-4">
+              <h4 className="text-xl font-bold">Desa Inspirasi Kalirejo</h4>
+              <h5 className="text-lg mb-2">
                 Alamat : Jl. Kyai Sampir No. 5 Kalirejo Salaman Magelang<br/>
                 Kode Pos : 56162<br/>
                 Telp : 081391021310<br/>
                 Email : kalirejo03salaman@gmail.com<br/>
               </h5>
             </div>
-            <div class="w-1/2 flex flex-row justify-end px-4 gap-4">
+            <div className="w-1/2 flex flex-row justify-end px-4 gap-4">
               <button className="h-10 w-10 bg-white rounded-full" onClick={() => openInNewTab("https://www.facebook.com/desainspirasixrejo")}>
                 fb
               </button>
@@ -214,20 +175,15 @@ export default function Homepage() {
               </button>
             </div>
           </div>
-          <div class="flex flex-wrap items-center md:justify-between justify-center">
-            <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-              <div class="text-sm text-blueGray-500 font-semibold py-1">
+          <div className="flex flex-wrap items-center md:justify-between justify-center">
+            <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+              <div className="text-sm text-blueGray-500 font-semibold py-1">
                 Desa Inspirasi Kalirejo
               </div>
             </div>
           </div>
         </div>
       </footer>
-      <ModalUmkm
-        onClose={handleOnClose}
-        visible={showModalUmkm}
-        umkm={id}
-      />
     </>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
-import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents, FaBars } from "react-icons/fa6";
+import { FaCalendarDays, FaMapLocationDot, FaTicket, FaTents } from "react-icons/fa6";
 import { Bg, GG1, GG2, GG3, GG4, GG5 } from "../assets";
 import { useFetch } from "../helpers/useFetch";
 
-const Body = () => {
+const Wisata = () => {
   const {data: wisataData} = useFetch("/wisata");
 
   const [wisata, setWisata] = useState([]);
@@ -36,31 +36,32 @@ const Body = () => {
                 <div className="flex flex-row gap-2 items-center">
                   <FaMapLocationDot/> Lokasi
                 </div>
-                <a>{item.lokasi}</a>
+                {item.lokasi}
               </div>
               <div className="flex flex-col">
                 <div className="flex flex-row gap-2 items-center">
                   <FaTicket/> Harga Tiket Masuk
                 </div>
-                <a>{rupiahFormatter(item.htm)}/orang</a>
+                {rupiahFormatter(item.htm)}/orang
               </div>
               <div className="flex flex-col">
                 <div className="flex flex-row gap-2 items-center">
                   <FaCalendarDays/> Jam Buka
                 </div>
-                <a>{item.jam}</a>
+                {item.jam}
                 </div>
               <div className="flex flex-col">
                 <div className="flex flex-row gap-2 items-center">
                   <FaTents/> Fasilitas
                 </div>
-                <a>- Spot Foto<br/>
-                - Agro Learning<br/>
-                - Homestay<br/>
-                - Joglo<br/>
-                - Tempat Makan<br/>
-                - Toilet
-                </a>
+                {item.fasilitas.split(', ').map(function(item, key) {
+                  return (
+                    <span key={key}>
+                      - {item}
+                      <br/>
+                    </span>
+                  )
+                })}
               </div>
             </div>
           ))}   
@@ -73,8 +74,9 @@ const Body = () => {
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
+      <div id="umkm" className="h-16"></div>
     </div>
   );
 };
 
-export default Body;
+export default Wisata;
