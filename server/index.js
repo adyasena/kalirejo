@@ -6,6 +6,7 @@ const cors = require('cors');
 const { errorHandler } = require("./middleware/errorMiddleware")
 const port = process.env.PORT
 const mongodb_uri = process.env.MONGODB_URI
+const fileupload = require('express-fileupload'); 
 
 const app = express()
 
@@ -18,6 +19,7 @@ mongoose
     process.exit(1);
   });
 
+app.use(fileupload({useTempFiles: true}))
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -25,6 +27,7 @@ app.use(express.static('public'));
 
 app.use("/umkm", require("./routes/umkmRoutes"))
 app.use("/wisata", require("./routes/wisataRoutes"))
+app.use("/galeri", require("./routes/galeriRoutes"))
 
 app.use(errorHandler)
 

@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const { successResponseBuilder } = require('../middleware/responseBuilder.js')
+const cloudinary = require("../middleware/cloudinary");
 const Galeri = require("../models/galeriModel")
 
 const createGaleri = asyncHandler(async (req, res) => {
@@ -7,15 +8,62 @@ const createGaleri = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error("gagal")
   }
+  const file = req.files.gambar
+  
+  const uploadedResponse = await cloudinary.uploader.upload(file.tempFilePath, {
+    upload_preset: "galeriKalirejo",
+  });
 
   const galeri = await Galeri.create({
     penulis: req.body.penulis,
     judul: req.body.judul,
     teks: req.body.teks,
-    gambar: req.body.gambar,
+    gambar: uploadedResponse,
   })
   res.status(200).json(galeri)
 })
+
+// const createGaleri = asyncHandler(async (req, res) => {
+//   const { penulis, judul, teks, gambar } = req.body;
+
+//   try {
+//     if (gambar) {
+//       const uploadedResponse = await cloudinary.uploader.upload(gambar, {
+//         upload_preset: "galeriKalirejo",
+//       });
+
+//       if (uploadedResponse) { 
+//         const galeri = new Galeri({
+//           penulis,
+//           judul,
+//           teks,
+//           gambar: uploadedResponse,
+//         });
+
+//         const savedGaleri = await galeri.save();
+//         res.status(200).send(savedGaleri);
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send(error);
+//   }
+// })
+
+// const createGaleri = asyncHandler(async (req, res) => {
+//   if(!req.body) {
+//     res.status(400)
+//     throw new Error("gagal")
+//   }
+
+//   const galeri = await Galeri.create({
+//     penulis: req.body.penulis,
+//     judul: req.body.judul,
+//     teks: req.body.teks,
+//     gambar: req.body.gambar,
+//   })
+//   res.status(200).json(galeri)
+// })
 
 const readGaleri = async (req, res, next) => {
   try {
