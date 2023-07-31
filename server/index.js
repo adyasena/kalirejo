@@ -21,7 +21,10 @@ mongoose
 
 mongoose.connection.once('open', () => {
   app.use(fileupload({useTempFiles: true}))
-  app.use(cors());
+  app.use(cors({
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(express.static('public'));
