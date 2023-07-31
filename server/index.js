@@ -22,6 +22,7 @@ mongoose
 mongoose.connection.once('open', () => {
   app.use(fileupload({useTempFiles: true}))
   app.use(cors({
+    origin: 'http://localhost:5173',
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
