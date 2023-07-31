@@ -33,18 +33,37 @@ const readGaleri = async (req, res, next) => {
 };
 
 const updateGaleri = asyncHandler(async (req, res) => {
-  const galeri = await Galeri.findById(req.params.id)
+  try {
+    const currentGaleri = await Galeri.findById(req.params.id);
+    const file = req.files.gambar;
 
-  if(!galeri) {
-    res.status(400)
-    throw new Error("not found")
+    const galeri = {
+      penulis: req.body.penulis,
+      judul: req.body.judul,
+      teks: req.body.teks,
+    }
+
+    if (req.body.gambar !== '') {
+      const gambarId = currentGaleri.gambar.public_id;
+      if (gambarId) {
+        await cloudinary.uploader.destroy(gambarId);
+      }
+      const uploadedResponse = await cloudinary.uploader.upload(file.tempFilePath, {
+        upload_preset: "galeriKalirejo",
+      });
+      galeri.gambar = uploadedResponse;
+    }
+
+    const galeriUpdate = await Galeri.findByIdAndUpdate(req.params.id, galeri, { new: true })
+
+    res.status(200).json({
+      success: true,
+      galeriUpdate
+    })
+  } 
+  catch (error) {
+    console.log(error);
   }
-
-  const updatedGaleri = await Galeri.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  })
-
-  res.status(200).json(updatedGaleri)
 })
 
 const deleteGaleri = asyncHandler(async (req, res) => {
