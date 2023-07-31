@@ -19,16 +19,18 @@ mongoose
     process.exit(1);
   });
 
-app.use(fileupload({useTempFiles: true}))
-app.use(cors());
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(express.static('public'));
+mongoose.connection.once('open', () => {
+  app.use(fileupload({useTempFiles: true}))
+  app.use(cors());
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
+  app.use(express.static('public'));
 
-app.use("/umkm", require("./routes/umkmRoutes"))
-app.use("/wisata", require("./routes/wisataRoutes"))
-app.use("/galeri", require("./routes/galeriRoutes"))
+  app.use("/umkm", require("./routes/umkmRoutes"))
+  app.use("/wisata", require("./routes/wisataRoutes"))
+  app.use("/galeri", require("./routes/galeriRoutes"))
 
-app.use(errorHandler)
+  app.use(errorHandler)
 
-app.listen(port, () => console.log(`Server ${port}`))
+  app.listen(port, () => console.log(`Server ${port}`))
+});
