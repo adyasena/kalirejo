@@ -96,60 +96,57 @@ const readGaleri = async (req, res, next) => {
 };
 
 const updateGaleri = asyncHandler(async (req, res) => {
-  console.log(req.params.id);
-  const file = req.files.gambar;
-  cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-    Galeri.findOneAndUpdate({_id:req.params.id},{
-      $set:{
-        penulis: req.body.penulis,
-        judul: req.body.judul,
-        teks: req.body.teks,
-        gambar: result,
-      }
-    })
-    .then(result=>{
-      res.status(200).json({
-        updated_product:result
-      })
-    })
-    .catch(err=>{
-      console.log(err);
-      res.status(500).json({
-        error:err
-      })
-    })
-  })
-  // try {
-  //   const currentGaleri = await Galeri.findById(req.params.id);
-  //   const file = req.files.gambar;
-
-  //   const galeri = {
-  //     penulis: req.body.penulis,
-  //     judul: req.body.judul,
-  //     teks: req.body.teks,
-  //   }
-
-  //   // if (req.body.gambar !== '') {
-  //   //   const gambarId = currentGaleri.gambar.public_id;
-  //   //   if (gambarId) {
-  //   //     await cloudinary.uploader.destroy(gambarId);
-  //   //   }
-  //   //   const uploadedResponse = await cloudinary.uploader.upload_stream(file, {
-  //   //     upload_preset: "galeriKalirejo",
-  //   //   });
-  //   //   galeri.gambar = uploadedResponse;
-  //   // }
-
-  //   const galeriUpdate = await Galeri.findByIdAndUpdate(req.params.id, galeri, { new: true }).select({ gambar: 0 })
-
-  //   res.status(200).json({
-  //     success: true,
-  //     galeriUpdate
+  // console.log(req.params.id);
+  // const file = req.files.gambar;
+  // cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
+  //   Galeri.findOneAndUpdate({_id:req.params.id},{
+  //     $set:{
+  //       penulis: req.body.penulis,
+  //       judul: req.body.judul,
+  //       teks: req.body.teks,
+  //       gambar: result,
+  //     }
   //   })
-  // } 
-  // catch (error) {
-  //   console.log(error);
-  // }
+  //   .then(result=>{
+  //     res.status(200).json({
+  //       updated_product:result
+  //     })
+  //   })
+  //   .catch(err=>{
+  //     console.log(err);
+  //     res.status(500).json({
+  //       error:err
+  //     })
+  //   })
+  // })
+  try {
+    const galeri = {
+      penulis: req.body.penulis,
+      judul: req.body.judul,
+      teks: req.body.teks,
+    }
+
+    // if (req.body.gambar !== '') {
+    //   const gambarId = currentGaleri.gambar.public_id;
+    //   if (gambarId) {
+    //     await cloudinary.uploader.destroy(gambarId);
+    //   }
+    //   const uploadedResponse = await cloudinary.uploader.upload_stream(file, {
+    //     upload_preset: "galeriKalirejo",
+    //   });
+    //   galeri.gambar = uploadedResponse;
+    // }
+
+    const galeriUpdate = await Galeri.findByIdAndUpdate(req.params.id, galeri, { new: true }).select({ gambar: 0 })
+
+    res.status(200).json({
+      success: true,
+      galeriUpdate
+    })
+  } 
+  catch (error) {
+    console.log(error);
+  }
 })
 
 const deleteGaleri = asyncHandler(async (req, res) => {
