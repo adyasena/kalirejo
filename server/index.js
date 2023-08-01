@@ -26,7 +26,7 @@ mongoose.connection.once('open', () => {
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
   app.use(express.json())
-  app.use(express.urlencoded({ extended: true }))
+  app.use(express.urlencoded({ extended: false }))
   app.use(express.static('public'));
 
   app.use("/umkm", require("./routes/umkmRoutes"))
