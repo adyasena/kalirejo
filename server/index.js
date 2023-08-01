@@ -11,7 +11,7 @@ const fileupload = require('express-fileupload');
 const app = express()
 
 mongoose
-  .connect(mongodb_uri)
+  .connect(mongodb_uri,{useNewUrlParser:true, useUnifiedTopology: true})
   .then(() => console.log('Connected to mongodb'))
   .catch((err) => {
     console.error(`Can't connect to mongodb`);
