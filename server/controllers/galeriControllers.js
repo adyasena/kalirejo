@@ -1,38 +1,38 @@
 const asyncHandler = require("express-async-handler")
 const { successResponseBuilder } = require('../middleware/responseBuilder.js')
-const cloudinary = require("../middleware/cloudinary");
+// const cloudinary = require("../middleware/cloudinary");
 const Galeri = require("../models/galeriModel")
-const multer = require("multer")
-const streamifier = require("streamifier");
+// const multer = require("multer")
+// const streamifier = require("streamifier");
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-const uploadMiddleware = upload.single("file");
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage });
+// const uploadMiddleware = upload.single("file");
 
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-}
-async function handler(req, res) {
-  await runMiddleware(req, res, uploadMiddleware);
-  console.log(req.file.buffer);
-  const stream = await cloudinary.uploader.upload_stream(
-    {
-      folder: "galeri",
-    },
-    (error, result) => {
-      if (error) return console.error(error);
-      res.status(200).json(result);
-    }
-  );
-  streamifier.createReadStream(req.file.buffer).pipe(stream);
-}
+// function runMiddleware(req, res, fn) {
+//   return new Promise((resolve, reject) => {
+//     fn(req, res, (result) => {
+//       if (result instanceof Error) {
+//         return reject(result);
+//       }
+//       return resolve(result);
+//     });
+//   });
+// }
+// async function handler(req, res) {
+//   await runMiddleware(req, res, uploadMiddleware);
+//   console.log(req.file.buffer);
+//   const stream = await cloudinary.uploader.upload_stream(
+//     {
+//       folder: "galeri",
+//     },
+//     (error, result) => {
+//       if (error) return console.error(error);
+//       res.status(200).json(result);
+//     }
+//   );
+//   streamifier.createReadStream(req.file.buffer).pipe(stream);
+// }
 
 const createGaleri = asyncHandler(async (req, res) => {
   if(!req.body) {
@@ -44,26 +44,26 @@ const createGaleri = asyncHandler(async (req, res) => {
   // const uploadedResponse = await cloudinary.uploader.upload_stream(file.tempFilePath, {
   //   upload_preset: "galeriKalirejo",
   // }); 
-  const file = req.files.gambar;
-  await cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-    galeri = new Galeri({
-      penulis: req.body.penulis,
-      judul: req.body.judul,
-      teks: req.body.teks,
-      gambar: result,
-    });
-    galeri.save()
-    .then(result=>{
-      res.status(200).json({
-        new_product:result
-      })
-    })
-    .catch(err=>{
-      res.status(500).json({
-        error:err
-      })
-    })
-  });
+  // const file = req.files.gambar;
+  // await cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
+  //   galeri = new Galeri({
+  //     penulis: req.body.penulis,
+  //     judul: req.body.judul,
+  //     teks: req.body.teks,
+  //     gambar: result,
+  //   });
+  //   galeri.save()
+  //   .then(result=>{
+  //     res.status(200).json({
+  //       new_product:result
+  //     })
+  //   })
+  //   .catch(err=>{
+  //     res.status(500).json({
+  //       error:err
+  //     })
+  //   })
+  // });
   // await runMiddleware(req, res, uploadMiddleware);
   // console.log(req.file.buffer);
   // const stream = await cloudinary.uploader.upload_stream(
@@ -77,13 +77,13 @@ const createGaleri = asyncHandler(async (req, res) => {
   // );
   // const uploadedResponse = streamifier.createReadStream(req.file.buffer).pipe(stream);
 
-  // const galeri = await Galeri.create({
-  //   penulis: req.body.penulis,
-  //   judul: req.body.judul,
-  //   teks: req.body.teks,
-  //   gambar: uploadedResponse,
-  // })
-  // res.status(200).json(galeri)
+  const galeri = await Galeri.create({
+    penulis: req.body.penulis,
+    judul: req.body.judul,
+    teks: req.body.teks,
+    gambar: req.body.gambar,
+  })
+  res.status(200).json(galeri)
 })
 
 const readGaleri = async (req, res, next) => {
@@ -120,11 +120,6 @@ const updateGaleri = asyncHandler(async (req, res) => {
   //   })
   // })
   try {
-    const galeri = {
-      penulis: req.body.penulis,
-      judul: req.body.judul,
-      teks: req.body.teks,
-    }
 
     // if (req.body.gambar !== '') {
     //   const gambarId = currentGaleri.gambar.public_id;
@@ -137,7 +132,7 @@ const updateGaleri = asyncHandler(async (req, res) => {
     //   galeri.gambar = uploadedResponse;
     // }
 
-    const galeriUpdate = await Galeri.findByIdAndUpdate(req.params.id, galeri, { new: true }).select({ gambar: 0 })
+    const galeriUpdate = await Galeri.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
     res.status(200).json({
       success: true,
@@ -147,6 +142,7 @@ const updateGaleri = asyncHandler(async (req, res) => {
   catch (error) {
     console.log(error);
   }
+  
 })
 
 const deleteGaleri = asyncHandler(async (req, res) => {
