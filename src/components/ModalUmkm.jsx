@@ -5,15 +5,15 @@ const ModalUmkm = ({ visible, onClose, umkm }) => {
 
   return (
     <>
-      <div className="justify-center items-center text-black flex fixed inset-0 z-10 text-base">
+      <div className="justify-center items-center text-black flex fixed inset-0 z-10 text-base text-start">
         <div className="w-1/2 mx-auto bg-white p-6 rounded-lg shadow-lg relative flex flex-col gap-4">
           <div className="flex items-start font-semibold text-lg">
             {umkm.produk}
-            <button className="ml-auto bg-transparent" onClick={onClose}>
-              <FaXmark/>
+            <button className="ml-auto bg-transparent hover:bg-grey p-1 rounded-lg transform ease duration-300" onClick={onClose}>
+              <FaXmark className="scale-125"/>
             </button>
           </div>
-          <img src={umkm.gambar} className="w-full h-72 object-cover rounded-lg" />
+          <img src={umkm.gambar.url} className="w-full h-72 object-cover rounded-lg" />
           <div className="w-full flex flex-col gap-4">
             {umkm.deskripsi}
           </div>
