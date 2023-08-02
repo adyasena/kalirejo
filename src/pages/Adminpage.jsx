@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
-import TableUmkm from "../components/TableUmkm";
-import ModalEditUmkm from "../components/ModalEditUmkm";
-import ModalDeleteUmkm from "../components/ModalDeleteUmkm";
+import nl2br from "react-nl2br";
+import Table from "../components/Table";
+import ModalEdit from "../components/ModalEdit";
+import ModalDelete from "../components/ModalDelete";
 import { useFetch } from "../helpers/useFetch";
 import { Logo } from "../assets";
 
 export default function Adminpage() {
   const [refreshSignal, setRefreshSignal] = useState(false);
   const [id, setId] = useState();
-  const [showModalEditUmkm, setShowModalEditUmkm] = useState(false);
-  const [showModalDeleteUmkm, setShowModalDeleteUmkm] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [table, setTable] = useState();
   const [scroll, setScroll] = useState(false);
   const [openTab, setOpenTab] = useState(1);
 
@@ -24,8 +26,8 @@ export default function Adminpage() {
   window.addEventListener('scroll', changeClass);
 
   const handleOnClose = () => {
-    setShowModalEditUmkm(false);
-    setShowModalDeleteUmkm(false);
+    setShowModalEdit(false);
+    setShowModalDelete(false);
   };
 
   const {data: umkmData} = useFetch("/umkm", refreshSignal);
@@ -73,11 +75,82 @@ export default function Adminpage() {
           let id =(umkm._id);
           return ( 
             <div className="flex flex-col items-center gap-2 px-1">
-              <button onClick={() => {setId(umkm); setShowModalEditUmkm(true);}} 
+              <button onClick={() => {setId(umkm); setShowModalEdit(true); setTable("umkm")}} 
                 className="rounded-md p-2 bg-blue hover:bg-black text-white w-full">
                   Ubah
               </button>
-              <button onClick={() => {setId(id); setShowModalDeleteUmkm(true)}} 
+              <button onClick={() => {setId(id); setShowModalDelete(true); setTable("umkm")}} 
+                className="rounded-md p-2 bg-red hover:bg-black text-white w-full">
+                  Hapus
+              </button>
+            </div>
+          )
+        },
+        width: 40,
+      }
+    ], []
+  );
+
+  const {data: galeriData} = useFetch("/galeri", refreshSignal);
+  const [galeri, setGaleri] = useState([]);
+  
+  useMemo(() => {
+    if (!galeriData?.data?.data) return;
+    setGaleri(galeriData.data.data.galeri);
+  }, [galeriData]);
+  
+  const columnsGaleri = useMemo(
+    () => [
+      {
+        Header: 'No',
+        Cell: ({ row, flatRows }) => {
+          return flatRows.indexOf(row) + 1;
+        },
+        width: 20,
+      },
+      {
+        Header: "Penulis",
+        accessor: "penulis",
+        width: 50,
+      },
+      {
+        Header: "Judul",
+        accessor: "judul",
+        width: 70,
+      },
+      {
+        Header: "Teks",
+        accessor: "teks",
+        Cell: ({value}) => {
+          return (
+            <div className="text-start overflow-y-scroll h-52">{nl2br(value)}</div>
+          )
+        },
+        width: 180,
+      },
+      {
+        Header: "Foto",
+        accessor: "gambar",
+        Cell: ({value}) => {
+          return (
+            <div className="flex flex-col items-center justify-center">
+              <img src={value} className="h-52" />
+            </div>
+          )
+        },
+        width: 160,
+      },
+      {
+        Header: "Action",
+        accessor: galeri => {
+          let id =(galeri._id);
+          return ( 
+            <div className="flex flex-col items-center gap-2 px-1">
+              <button onClick={() => {setId(galeri); setShowModalEdit(true); setTable("galeri")}} 
+                className="rounded-md p-2 bg-blue hover:bg-black text-white w-full">
+                  Ubah
+              </button>
+              <button onClick={() => {setId(id); setShowModalDelete(true); setTable("galeri")}} 
                 className="rounded-md p-2 bg-red hover:bg-black text-white w-full">
                   Hapus
               </button>
@@ -133,17 +206,19 @@ export default function Adminpage() {
                   Galeri
               </button>
             </div>
-          <div className="bg-white container mx-auto rounded-b-xl flex flex-col items-center h-full">
-            <div className="w-full text-sm pt-6 px-5 rounded-md items-center flex flex-col">
-              <div className={openTab === 1 ? "block" : "hidden"}>
-                <TableUmkm columns={columnsUmkm} data={umkm} setRefreshSignal={setRefreshSignal}/>
+          <div className="bg-white min-h-[70vh] container mx-auto rounded-b-xl flex flex-col items-center h-full">
+            <div className="w-full text-sm p-6 rounded-md items-center flex flex-col">
+              <div className={openTab === 2 ? "block" : "hidden"}>
+                <Table columns={columnsUmkm} data={umkm} setRefreshSignal={setRefreshSignal} table={"umkm"}/>
               </div>
-              
+              <div className={openTab === 3 ? "block" : "hidden"}>
+                <Table columns={columnsGaleri} data={galeri} setRefreshSignal={setRefreshSignal} table={"galeri"}/>
+              </div>
             </div>
           </div>
         </div>
-        <ModalEditUmkm onClose={handleOnClose} visible={showModalEditUmkm} row={id} setRefreshSignal={setRefreshSignal}/>
-        <ModalDeleteUmkm onClose={handleOnClose} visible={showModalDeleteUmkm} row={id} setRefreshSignal={setRefreshSignal}/>
+        <ModalEdit onClose={handleOnClose} visible={showModalEdit} row={id} setRefreshSignal={setRefreshSignal} table={table}/>
+        <ModalDelete onClose={handleOnClose} visible={showModalDelete} row={id} setRefreshSignal={setRefreshSignal} table={table}/>
       </div>
     </>
   )
