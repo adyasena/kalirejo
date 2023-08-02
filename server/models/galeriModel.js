@@ -12,7 +12,7 @@ const galeriSchema = mongoose.Schema(
     },
     teks: {
       type: String,
-      required: true
+      required: false
     },
     gambar: {
       type: String,
