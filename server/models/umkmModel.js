@@ -11,7 +11,7 @@ const umkmSchema = mongoose.Schema(
       required: true
     },
     gambar: {
-      type: Object,
+      type: String,
       required: true
     },
   },
