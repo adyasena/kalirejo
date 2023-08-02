@@ -57,8 +57,7 @@ const Wisata = () => {
                 {item.fasilitas.split(', ').map(function(item, key) {
                   return (
                     <span key={key}>
-                      - {item}
-                      <br/>
+                      - {item}<br/>
                     </span>
                   )
                 })}

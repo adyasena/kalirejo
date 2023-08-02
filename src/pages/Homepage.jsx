@@ -33,20 +33,8 @@ export default function Homepage() {
     });
   };
   
-  const scrollWisata = () => {
-    const element = document.getElementById('wisata');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  const scrollUMKM = () => {
-    const element = document.getElementById('umkm');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  const scrollGaleri = () => {
-    const element = document.getElementById('galeri');
+  const scrollToSection = (section) => {
+    const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -79,15 +67,15 @@ export default function Homepage() {
               Beranda
             </button>
             <button className="hover:underline"
-              onClick={scrollWisata}>
+              onClick={() => {scrollToSection("wisata")}}>
               Wisata
             </button>
             <button className="hover:underline"
-              onClick={scrollUMKM}>
+              onClick={() => {scrollToSection("umkm")}}>
               UMKM
             </button>
             <button className="hover:underline"
-              onClick={scrollGaleri}>
+              onClick={() => {scrollToSection("galeri")}}>
               Galeri
             </button>
             <button className="hover:underline"
@@ -103,15 +91,15 @@ export default function Homepage() {
               Beranda
           </button>
           <button className="hover:bg-grey py-2"
-            onClick={() => {setIsOpen((prev) => !prev); scrollWisata()}}>
+            onClick={() => {setIsOpen((prev) => !prev); scrollToSection("wisata")}}>
               Wisata
           </button>
           <button className="hover:bg-grey py-2"
-            onClick={() => {setIsOpen((prev) => !prev); scrollUMKM()}}>
+            onClick={() => {setIsOpen((prev) => !prev); scrollToSection("umkm")}}>
               UMKM
           </button>
           <button className="hover:bg-grey py-2"
-            onClick={() => {setIsOpen((prev) => !prev); scrollGaleri()}}>
+            onClick={() => {setIsOpen((prev) => !prev); scrollToSection("galeri")}}>
               Galeri
           </button>
           <button className="hover:bg-grey py-2"
@@ -134,7 +122,7 @@ export default function Homepage() {
                   Temukan destinasi wisata terbaik dan produk UMKM unggulan di Desa Kalirejo, Kecamatan Salaman, Kabupaten Magelang, Jawa Tengah
                 </p>
                 <button className="bg-green-dark text-white font-normal lg:text-xl text-lg py-2 px-6 rounded-lg transform duration-300 ease lg:hover:bg-black"
-                  onClick={scrollWisata}>
+                  onClick={() => {scrollToSection("wisata")}}>
                     Telusuri Sekarang
                 </button>
                 <div className="lg:h-2"></div>
@@ -144,7 +132,7 @@ export default function Homepage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col container mx-auto font-poppins items-center lg:text-center">
+      <div className="flex flex-col container mx-auto font-poppins items-center text-center">
         <div className="flex flex-col mt-10 lg:mt-0 lg:mx-10">
           <Wisata/>
           <Umkm/>
