@@ -21,7 +21,7 @@ const Umkm = () => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col text-4xl font-bold gap-4 pt-4">
         UMKM Unggulan
-        <div className="grid grid-cols-3 grid-rows-2 gap-4">
+        <div className="grid lg:grid-cols-3 lg:grid-rows-2 gap-4">
           {umkm.map((item) => (
             <div key={item._id} className="flex flex-col items-center gap-2 h-52">
               <button className="h-4/5 w-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md" 

@@ -19,16 +19,16 @@ const Wisata = () => {
   return (
     <div className="flex flex-col text-4xl font-bold gap-4">
       Bukit GG
-      <div className="grid grid-cols-6 grid-rows-6 max-h-[30rem] gap-4">
-        <img src={GG1} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
-        <img src={GG2} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
-        <img src={GG3} className="row-span-6 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
-        <img src={GG5} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
-        <img src={GG4} className="row-span-3 col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
-        <img src={Bg} className="row-span-3 col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>             
+      <div className="grid grid-cols-2 lg:grid-cols-6 lg:grid-rows-6 lg:max-h-[30rem] gap-4">
+        <img src={GG1} className="col-span-2 lg:row-span-3 lg:col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+        <img src={GG2} className="lg:row-span-6 lg:col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+        <img src={GG3} className="lg:row-span-6 lg:col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+        <img src={GG5} className="col-span-2 lg:row-span-3 lg:col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+        <img src={GG4} className="lg:row-span-3 lg:col-span-3 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>
+        <img src={Bg} className="lg:row-span-3 lg:col-span-1 object-cover w-full h-full rounded-lg transform ease duration-300 hover:scale-[1.02] hover:shadow-md"/>             
       </div>
-      <div className="flex flex-row justify-between w-full gap-4">
-        <div className="bg-green-dark flex flex-col text-lg font-normal text-white p-4 text-start w-[30%] gap-4 rounded-lg">
+      <div className="flex lg:flex-row flex-col lg:justify-between w-full gap-4">
+        <div className="bg-green-dark flex flex-col text-lg font-normal text-white p-4 text-start lg:w-[30%] gap-4 rounded-lg">
           {wisata.map((item) => (
             <div key={item._id} className="flex flex-col gap-4">
               <a className="font-bold text-2xl">{item.nama}</a>
@@ -65,7 +65,7 @@ const Wisata = () => {
             </div>
           ))}   
         </div>
-        <iframe className="w-[70%] rounded-lg"
+        <iframe className="lg:w-[70%] h-[50vh] rounded-lg"
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15818.456683504251!2d110.1320134!3d-7.6168929!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a93f9e33f44e5%3A0xf886fa8199c6a60!2sBukit%20%22GG%22%20(Grhadika%20Garden)!5e0!3m2!1sen!2sid!4v1689642859651!5m2!1sen!2sid" 
           style={{border:"0"}}
           allowfullscreen="" 
