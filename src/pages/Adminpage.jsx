@@ -30,6 +30,59 @@ export default function Adminpage() {
     setShowModalDelete(false);
   };
 
+  const {data: wisataData} = useFetch("/wisata", refreshSignal);
+  const [wisata, setWisata] = useState([]);
+  
+  useMemo(() => {
+    if (!wisataData?.data?.data) return;
+    setWisata(wisataData.data.data.wisata);
+  }, [wisataData]);
+  
+  const columnsWisata = useMemo(
+    () => [
+      {
+        Header: "Nama",
+        accessor: "nama",
+        width: 50,
+      },
+      {
+        Header: "Lokasi",
+        accessor: "lokasi",
+        width: 120,
+      },
+      {
+        Header: "Harga Tiket",
+        accessor: "htm",
+        width: 60,
+      },
+      {
+        Header: "Jam Buka",
+        accessor: "jam",
+        width: 60,
+      },
+      {
+        Header: "Fasilitas",
+        accessor: "fasilitas",
+        width: 200,
+      },
+      {
+        Header: "Action",
+        accessor: umkm => {
+          let id =(umkm._id);
+          return ( 
+            <div className="flex flex-col items-center gap-2 px-1">
+              <button onClick={() => {setId(umkm); setShowModalEdit(true); setTable("wisata")}} 
+                className="rounded-md p-2 bg-blue hover:bg-black text-white w-full">
+                  Ubah
+              </button>
+            </div>
+          )
+        },
+        width: 40,
+      }
+    ], []
+  );
+
   const {data: umkmData} = useFetch("/umkm", refreshSignal);
   const [umkm, setUmkm] = useState([]);
   
@@ -143,14 +196,13 @@ export default function Adminpage() {
       {
         Header: "Action",
         accessor: galeri => {
-          let id =(galeri._id);
           return ( 
             <div className="flex flex-col items-center gap-2 px-1">
               <button onClick={() => {setId(galeri); setShowModalEdit(true); setTable("galeri")}} 
                 className="rounded-md p-2 bg-blue hover:bg-black text-white w-full">
                   Ubah
               </button>
-              <button onClick={() => {setId(id); setShowModalDelete(true); setTable("galeri")}} 
+              <button onClick={() => {setId(galeri); setShowModalDelete(true); setTable("galeri")}} 
                 className="rounded-md p-2 bg-red hover:bg-black text-white w-full">
                   Hapus
               </button>
@@ -192,22 +244,25 @@ export default function Adminpage() {
       </div>
       <div className="bg-green">
         <div className="w-full min-h-screen pt-32 pb-6 items-center">
-        <div className="container mx-auto flex flex-row justify-between text-green-dark text-center text-2xl font-poppins font-semibold w-full">
-              <button className={"w-1/3 py-2 rounded-tl-xl transform duration-300 ease border-t-4 border-l-4 border-white " + (openTab === 1 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
-                onClick={() => setOpenTab(1)}>
-                  Wisata
-              </button>
-              <button className={"w-1/3 py-2 transform duration-300 ease border-t-4 border-l-4 border-r-4 border-white " + (openTab === 2 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
-                onClick={() => setOpenTab(2)}>
-                  UMKM
-              </button>
-              <button className={"w-1/3 py-2 rounded-tr-xl transform duration-300 ease border-t-4 border-r-4 border-white " + (openTab === 3 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
-                onClick={() => setOpenTab(3)}>
-                  Galeri
-              </button>
-            </div>
+          <div className="container mx-auto flex flex-row justify-between text-green-dark text-center text-2xl font-poppins font-semibold w-full">
+            <button className={"w-1/3 py-2 rounded-tl-xl transform duration-300 ease border-t-4 border-l-4 border-white " + (openTab === 1 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
+              onClick={() => setOpenTab(1)}>
+                Wisata
+            </button>
+            <button className={"w-1/3 py-2 transform duration-300 ease border-t-4 border-l-4 border-r-4 border-white " + (openTab === 2 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
+              onClick={() => setOpenTab(2)}>
+                UMKM
+            </button>
+            <button className={"w-1/3 py-2 rounded-tr-xl transform duration-300 ease border-t-4 border-r-4 border-white " + (openTab === 3 ? "bg-white hover:bg-grey": "bg-green hover:bg-green-dark text-white")}
+              onClick={() => setOpenTab(3)}>
+                Galeri
+            </button>
+          </div>
           <div className="bg-white min-h-[70vh] container mx-auto rounded-b-xl flex flex-col items-center h-full">
             <div className="w-full text-sm p-6 rounded-md items-center flex flex-col">
+              <div className={openTab === 1 ? "block" : "hidden"}>
+                <Table columns={columnsWisata} data={wisata} setRefreshSignal={setRefreshSignal} table={"wisata"}/>
+              </div>
               <div className={openTab === 2 ? "block" : "hidden"}>
                 <Table columns={columnsUmkm} data={umkm} setRefreshSignal={setRefreshSignal} table={"umkm"}/>
               </div>

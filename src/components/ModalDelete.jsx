@@ -5,12 +5,12 @@ import { FaXmark } from "react-icons/fa6";
 const ModalDelete = ({ visible, onClose, row, setRefreshSignal, table, setShowToast }) => {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
-  const deleteUmkmHandler = async (id) => {
+  const deleteUmkmHandler = async () => {
     try {
       setIsDeleteLoading(true);
 
       const fetcher = createFetcher();
-      await fetcher.delete("/umkm/" + id);
+      await fetcher.delete("/umkm/" + row._id);
 
       setRefreshSignal((s) => !s);
       onClose();
@@ -53,7 +53,7 @@ const ModalDelete = ({ visible, onClose, row, setRefreshSignal, table, setShowTo
           </div>
           <div className="flex flex-col gap-10">
             <div className="flex flex-col items-center w-full">
-              Anda yakin ingin menghapus produk ini?
+              Anda yakin ingin menghapus {row.produk}?
             </div>
             <div className="flex flex-row items-center justify-end gap-2">
               <button
@@ -65,7 +65,7 @@ const ModalDelete = ({ visible, onClose, row, setRefreshSignal, table, setShowTo
               <button
                 className={"py-2 px-4 rounded-md text-white ease transition-all duration-300 " + (isDeleteLoading ? "cursor-wait bg-grey" : "bg-red hover:bg-black")}
                 type="submit"
-                onClick={() => deleteUmkmHandler(row)}>
+                onClick={() => deleteUmkmHandler(row._id)}>
                   Hapus
               </button>
             </div>
@@ -80,7 +80,7 @@ const ModalDelete = ({ visible, onClose, row, setRefreshSignal, table, setShowTo
           </div>
           <div className="flex flex-col gap-10">
             <div className="flex flex-col items-center w-full">
-              Anda yakin ingin menghapus konten ini?
+              Anda yakin ingin menghapus {row.judul}?
             </div>
             <div className="flex flex-row items-center justify-end gap-2">
               <button
@@ -92,7 +92,7 @@ const ModalDelete = ({ visible, onClose, row, setRefreshSignal, table, setShowTo
               <button
                 className={"py-2 px-4 rounded-md text-white ease transition-all duration-300 " + (isDeleteLoading ? "cursor-wait bg-grey" : "bg-red hover:bg-black")}
                 type="submit"
-                onClick={() => deleteGaleriHandler(row)}>
+                onClick={() => deleteGaleriHandler(row._id)}>
                   Hapus
               </button>
             </div>

@@ -26,7 +26,7 @@ export default function Table({ columns, data, setRefreshSignal, table, setShowT
 
   return (
     <div className="text-black">
-      <div className="flex flex-row font-poppins justify-between gap-2 align-center">
+      <div className={"flex flex-row font-poppins justify-between gap-2 align-center " + (table !== "wisata" ? "block" : "hidden")}>
         <div className="flex flex-row justify-start gap-3 align-center w-1/2">
           <input
             type="text"
