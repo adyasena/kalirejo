@@ -61,7 +61,7 @@ const updateUMKM = asyncHandler(async (req, res) => {
 
 const deleteUMKM = asyncHandler(async (req, res, next) => {
   try {
-    await UMKM.findOneAndDelete({_id: req.params.id});
+    await UMKM.findByIdAndDelete({_id: req.params.id});
 
     res.json(successResponseBuilder({deletedUmkm: req.params.id}))
 } catch (err) {

@@ -153,7 +153,7 @@ const deleteGaleri = asyncHandler(async (req, res) => {
     throw new Error("not found")
   }
 
-  await Galeri.findOneAndDelete(req.params.id);
+  await Galeri.findByIdAndDelete(req.params.id);
 
   res.status(200).json({ id: req.params.id })
 })
